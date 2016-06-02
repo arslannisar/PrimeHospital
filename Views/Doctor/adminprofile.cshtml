@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "adminprofile";
+    Layout = "~/Views/Shared/_Layoutdoctor.cshtml";
+}
+
+<h2>adminprofile</h2>
+@{
+
+    string f = "";
+
+    f = (string)(Session["Username"]);
+    if (f == null)
+    {
+        f = "out";
+    }
+
+    if (f == "out")
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+    }
+<script type="text/javascript">
+
+    function onlyAlphabets(evt) {
+        var charCode;
+        if (window.event)
+            charCode = window.event.keyCode;  //for IE
+        else
+            charCode = evt.which;  //for firefox
+        if (charCode == 32) //for &lt;space&gt; symbol
+            return true;
+        if (charCode > 31 && charCode < 65) //for characters before 'A' in ASCII Table
+            return false;
+        if (charCode > 90 && charCode < 97) //for characters between 'Z' and 'a' in ASCII Table
+            return false;
+        if (charCode > 122) //for characters beyond 'z' in ASCII Table
+            return false;
+        return true;
+    }
+    function onlyNumbers(evt) {
+        var charCode;
+        if (window.event)
+            charCode = window.event.keyCode;   //if IE
+        else
+            charCode = evt.which; //if firefox
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+</script>
+
+
+
+
+
+
+
+<h2>Admin Profile</h2>
+
+<form action="/Admin/profileapproval" method="post">
+
+
+    <div align="center">
+        <br><br>
+
+        Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="name" value="" />
+
+
+
+        <br><br>
+        Change Password:
+        <input type="password" name="pass" value="" />
+        <br><br>
+
+
+        Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="age" value="" onkeypress="return onlyNumbers(event);" />
+        <br><br>
+        Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="phone" value="" onkeypress="return onlyNumbers(event);" />
+        <br><br>
+
+
+
+
+
+
+
+
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" id="btn" value="Update Doctor" />
+    </div>
+
+
+</form>
+
+
+
+
+

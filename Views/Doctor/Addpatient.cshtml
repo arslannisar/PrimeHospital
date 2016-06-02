@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Addpatient";
+    Layout = "~/Views/Shared/_Layoutdoctor.cshtml";
+}
+@{
+
+    string f = "";
+
+    f = (string)(Session["Username"]);
+    if (f == null)
+    {
+        f = "out";
+    }
+
+    if (f == "out")
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+    }
+<head>
+    <title></title>
+    <style>
+     
+        </style>
+
+    <script type="text/javascript">
+
+        function onlyAlphabets(evt) {
+            var charCode;
+            if (window.event)
+                charCode = window.event.keyCode;  //for IE
+            else
+                charCode = evt.which;  //for firefox
+            if (charCode == 32) //for &lt;space&gt; symbol
+                return true;
+            if (charCode > 31 && charCode < 65) //for characters before 'A' in ASCII Table
+                return false;
+            if (charCode > 90 && charCode < 97) //for characters between 'Z' and 'a' in ASCII Table
+                return false;
+            if (charCode > 122) //for characters beyond 'z' in ASCII Table
+                return false;
+            return true;
+        }
+        function onlyNumbers(evt) {
+            var charCode;
+            if (window.event)
+                charCode = window.event.keyCode;   //if IE
+            else
+                charCode = evt.which; //if firefox
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+
+</head>
+<h2>Addpatient</h2>
+
+<form action="/Doctor/Addpatient" method="post">
+
+    <br><br>
+
+    <div id="header" align="center">
+        <br><br>
+
+        Enter Patient Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="name" required onkeypress="return onlyAlphabets(event);" />
+        <br><br>
+
+
+        Gender :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select name="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+
+
+        Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="age" required onkeypress="return onlyNumbers(event);" value="" />
+        <br><br>
+        Weight:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" required name="weight" onkeypress="return onlyNumbers(event);" value="" />
+        <br><br>
+
+        DiseaseName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" required name="disname" onkeypress="return onlyAlphabets(event);" value="" />
+        <br><br>
+
+        DiseasePrescription:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" required name="dispre" onkeypress="return onlyAlphabets(event);" value="" />
+        <br><br>
+
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" id="btn" value="Add Patient" />
+    </div>
+</form>

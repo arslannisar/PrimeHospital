@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "Adminesearchdoctor";
+    Layout = "~/Views/Shared/_Layoutdoctor.cshtml";
+}
+@{
+
+    string f = "";
+
+    f = (string)(Session["Username"]);
+    if (f == null)
+    {
+        f = "out";
+    }
+
+    if (f == "out")
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+
+}
+
+
+<head>
+    <script type="text/javascript">
+
+        function onlyAlphabets(evt) {
+            var charCode;
+            if (window.event)
+                charCode = window.event.keyCode;  //for IE
+            else
+                charCode = evt.which;  //for firefox
+            if (charCode == 32) //for &lt;space&gt; symbol
+                return true;
+            if (charCode > 31 && charCode < 65) //for characters before 'A' in ASCII Table
+                return false;
+            if (charCode > 90 && charCode < 97) //for characters between 'Z' and 'a' in ASCII Table
+                return false;
+            if (charCode > 122) //for characters beyond 'z' in ASCII Table
+                return false;
+            return true;
+        }
+        function onlyNumbers(evt) {
+            var charCode;
+            if (window.event)
+                charCode = window.event.keyCode;   //if IE
+            else
+                charCode = evt.which; //if firefox
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+    <script src="sorttable.js"></script>
+    <title></title>
+    <script src="sorttable.js"></script>
+    <style>
+        body {
+            background-color: #3e94ec;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+        }
+
+        div.table-title {
+            display: block;
+            margin: auto;
+            max-width: 600px;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .table-title h3 {
+            color: #fafafa;
+            font-size: 30px;
+            font-weight: 400;
+            font-style: normal;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+        }
+
+
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            border-radius: 3px;
+            border-collapse: collapse;
+            margin: auto;
+            padding: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+            overflow: scroll;
+        }
+
+        th {
+            color: #D5DDE5;
+            ;
+            background: #1b1e24;
+            border-bottom: 4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size: 18px;
+            font-weight: 100;
+            padding: 10px;
+            text-align: left;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            vertical-align: middle;
+        }
+
+            th:first-child {
+                border-top-left-radius: 3px;
+            }
+
+            th:last-child {
+                border-top-right-radius: 3px;
+                border-right: none;
+            }
+
+        tr {
+            border-top: 1px solid #C1C3D1;
+            border-bottom: 1px solid #C1C3D1;
+            color: #666B85;
+            font-size: 16px;
+            font-weight: normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+        }
+
+            tr:hover td {
+                background: #4E5066;
+                color: #FFFFFF;
+                border-top: 1px solid #22262e;
+                border-bottom: 1px solid #22262e;
+            }
+
+            tr:first-child {
+                border-top: none;
+            }
+
+            tr:last-child {
+                border-bottom: none;
+            }
+
+            tr:nth-child(odd) td {
+                background: #EBEBEB;
+            }
+
+            tr:nth-child(odd):hover td {
+                background: #4E5066;
+            }
+
+            tr:last-child td:first-child {
+                border-bottom-left-radius: 3px;
+            }
+
+            tr:last-child td:last-child {
+                border-bottom-right-radius: 3px;
+            }
+
+        td {
+            background: #FFFFFF;
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 18px;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #C1C3D1;
+        }
+
+            td:last-child {
+                border-right: 0px;
+            }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+    </style>
+
+
+
+    
+</head>
+
+
+
+<h2>Search Patient</h2>
+
+<form action="/Doctor/searchpatient" method="post">
+
+    <br><br>
+
+    <div id="header" align="center">
+        <br><br>
+
+        Enter Patient Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="name"  "/>
+        <br><br>
+
+
+        Gender :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select name="gender">
+            <option value="">Other</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            
+        </select>
+        <br><br>
+
+
+        Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="age" onkeypress="return onlyNumbers(event);" value="" />
+        <br><br>
+        Weight:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text"  name="weight" onkeypress="return onlyNumbers(event);" value="" />
+        <br><br>
+
+        DiseaseName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text"  name="disname" onkeypress="return onlyAlphabets(event);" value="" />
+        <br><br>
+
+        DiseasePrescription:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text"  name="dispre" onkeypress="return onlyAlphabets(event);" value="" />
+        <br><br>
+
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" id="btn" value="SearchPatient" />
+    </div>
+
+    @{
+        string nam = Request["name"];
+        int age = -1;
+        if ((Request["age"] != null) && (Request["age"] != ""))
+        {
+            age = int.Parse(Request["age"]);
+        }
+         string gen = Request["gender"];
+         int wei = -1;
+         if ((Request["age"] != null) && (Request["age"] != ""))
+         {
+             wei = int.Parse(Request["age"]);
+         }
+         string DiseaseName = Request["disname"];
+         string disp = Request["dispre"];
+        
+        // string pass = Request["pa"];
+
+
+        
+
+    }
+
+    <br><br>
+
+
+    <div class="table-title">
+
+    </div>
+    <table class="table-fill">
+        <thead>
+            <tr>
+                <th class="text-left">PId</th>
+                <th class="text-left">PatientName</th>
+                <th class="text-left">Id</th>
+                <th class="text-left">Weight</th>
+                <th class="text-left">Age</th>
+                <th class="text-left">DiseaseName</th>
+                <th class="text-left">Prescription</th>
+                <th class="text-left">Gender</th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+
+
+
+            @foreach (PatientDis s in ViewBag.result)
+            {
+                if (@s.PatientName == nam || @s.Gender == gen || @s.Weight == wei || @s.DiseaseName == DiseaseName || @s.Prescription == disp)
+                
+                {
+                    <tr>
+                    <td class="text-left">@s.PId</td>
+                    <td class="text-left">@s.PatientName</td>
+                    <td class="text-left">@s.Id</td>
+                    <td class="text-left">@s.Weight</td>
+                    <td class="text-left">@s.Age</td>
+                    <td class="text-left">@s.DiseaseName</td>
+                    <td class="text-left">@s.Prescription</td>
+                    <td class="text-left">@s.Gender</td>
+                    <td>
+                        <a href="/Admin/Updatepatients/@s.Id">Update</a>&nbsp;&nbsp;<a href="/Admin/Deletedoctor/@s.Id">Delete</a>
+
+
+                    </td>
+                </tr>
+            }
+            }
+        </tbody>
+    </table>
+
+</form>

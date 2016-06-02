@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "updatepatients";
+    Layout = "~/Views/Shared/_Layoutdoctor.cshtml";
+}
+
+@{
+    var list = ViewBag.result;
+    string f = "";
+
+    f = (string)(Session["Username"]);
+    if (f == null)
+    {
+        f = "out";
+    }
+
+    if (f == "out")
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+    }
+
+
+
+<h2>updatepatients</h2>
+
+@foreach (var a in list){
+    <form action="/Doctor/update_patient/" method="post">
+        <input type="hidden" name="patinet_id" value="@a.PId" />
+        <br><br>
+
+        <div align="center">
+            <br><br>
+
+            Enter Patient Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" required name="name" value="@a.PatientName" onkeypress="return onlyAlphabets(event);" />
+            <br><br>
+
+
+            Gender :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select name="gender">
+                
+               @if (@a.Gender == "M")
+               {
+                   <option value="M" selected>Male</option>
+               }
+               else { 
+                   <option value="M" >Male</option>
+               }
+
+                @if (@a.Gender == "F")
+                {
+                    <option value="F" selected>Female</option>
+                }
+                else
+                {
+                    <option value="F">Female</option>
+                }
+
+
+                
+            </select>
+            <br><br>
+            Enter Weight:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" required name="wei" value="@a.Weight" onkeypress="return onlyNumbers(event);" />
+            <br><br>
+
+
+
+            Enter Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="age" required value="@a.Age" onkeypress="return onlyNumbers(event);" />
+            <br><br>
+
+            Diseasename:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="un" required value="@a.DiseaseName" />
+            <br><br>
+            Prescription:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" name="pa" required value="@a.Prescription" />
+            <br><br>
+
+
+
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" id="btn" value="Update Patient" />
+        </div>
+
+    </form>
+
+
+}
+

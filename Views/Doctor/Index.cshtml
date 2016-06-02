@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutdoctor.cshtml";
+}
+@{
+
+    string f = "";
+
+    f = (string)(Session["Username"]);
+    if (f == null)
+    {
+        f = "out";
+    }
+
+    if (f == "out")
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+
+}
+

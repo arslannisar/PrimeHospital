@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    
+    string f = "";
+    
+    f=(string)(Session["Username"]);
+    if (f == null)
+    { 
+        f = "out";
+    }
+    
+    if (f == "out")
+    { 
+        Response.Redirect("~/Admin/Login");
+    }
+
+}
+
+
+
+
+<h1> Doctor details</h1>
+<head>
+    <title></title>
+ 
+    <script type="text/javascript">
+
+        function onlyAlphabets(evt) {
+            var charCode;
+            if (window.event)
+                charCode = window.event.keyCode;  //for IE
+            else
+                charCode = evt.which;  //for firefox
+            if (charCode == 32) //for &lt;space&gt; symbol
+                return true;
+            if (charCode > 31 && charCode < 65) //for characters before 'A' in ASCII Table
+                return false;
+            if (charCode > 90 && charCode < 97) //for characters between 'Z' and 'a' in ASCII Table
+                return false;
+            if (charCode > 122) //for characters beyond 'z' in ASCII Table
+                return false;
+            return true;
+        }
+        function onlyNumbers(evt) {
+            var charCode;
+            if (window.event)
+                charCode = window.event.keyCode;   //if IE
+            else
+                charCode = evt.which; //if firefox
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+
+    </head>
+
+<form action="/Admin/Dashboard" method="post">
+
+    <br><br>
+
+    <div align="center">
+        <br><br>
+
+        Enter Doctor Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="name" required onkeypress="return onlyAlphabets(event);" />
+        <br><br>
+
+
+        Gender :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select name="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+        Enter Doctor Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="phone" required onkeypress="return onlyNumbers(event);" />
+        <br><br>
+
+
+
+        Doctor's Age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="age" required onkeypress="return onlyNumbers(event);" />
+        <br>
+        <br>
+
+         Username:   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="uname" required />
+        <br>
+        <br>
+
+          Password:  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="password" name="pass" required />
+        <br>
+        <br>
+
+
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" id="btn" value="Add Doctor" />
+    </div>
+
+</form>
+
+
+

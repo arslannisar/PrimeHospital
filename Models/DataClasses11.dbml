@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="DataClasses11DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Doctor" Member="Doctors">
+    <Type Name="Doctor">
+      <Column Name="DId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Dname" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Dphone" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Dage" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Dgender" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Login" Member="Logins">
+    <Type Name="Login">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Uname" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Patient" Member="Patients">
+    <Type Name="Patient">
+      <Column Name="PId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PatientName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Patient_Disease" Member="Diseases" ThisKey="PId" OtherKey="PId" Type="Disease" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Disease" Member="Diseases">
+    <Type Name="Disease">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DiseaseName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Prescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Patient_Disease" Member="Patient" ThisKey="PId" OtherKey="PId" Type="Patient" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
